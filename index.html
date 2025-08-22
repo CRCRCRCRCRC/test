@@ -1,79 +1,140 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<title>極致貪食蛇 Ultra Snake</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="./style.css">
-	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2300e5a8'/%3E%3Cpath d='M14 34c6-8 14 0 18-6s12-2 18-10' stroke='%23001815' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='44' cy='14' r='3' fill='%23001815'/%3E%3C/svg%3E">
-	<meta name="theme-color" content="#0c0f14">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crcrcyt - 支持創作</title>
+    <meta name="description" content="支持 crcrcyt 的創作，讓我們一起創造更多美好的內容">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E☕%3C/text%3E%3C/svg%3E">
 </head>
 <body>
-	<div id="app">
-		<header class="hud">
-			<div class="hud-left">
-				<div class="score-label">分數</div>
-				<div id="score" class="score">0</div>
-			</div>
-			<div class="hud-center">
-				<button id="btn-pause" class="btn ghost" aria-label="暫停/繼續">❚❚</button>
-				<button id="btn-sound" class="btn ghost" aria-label="音效開關">🔊</button>
-				<button id="btn-theme" class="btn ghost" aria-label="主題切換">🌗</button>
-			</div>
-			<div class="hud-right">
-				<div class="score-label">最高</div>
-				<div id="high-score" class="score">0</div>
-			</div>
-		</header>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="profile">
+                <div class="avatar">
+                    <span class="avatar-text">crcrcyt</span>
+                </div>
+                <h1 class="name">crcrcyt</h1>
+                <p class="tagline">創作不息，夢想不止</p>
+            </div>
+        </header>
 
-		<main class="stage-wrap">
-			<canvas id="game" width="640" height="640"></canvas>
-			<div id="overlay" class="overlay hidden">
-				<h1 class="title">Game Over</h1>
-				<p class="subtitle">你的分數：<span id="final-score">0</span></p>
-				<div class="overlay-actions">
-					<button id="btn-restart" class="btn primary">重新開始</button>
-					<button id="btn-leaderboard" class="btn">排行榜</button>
-				</div>
-			</div>
-			<div id="tip" class="tip">使用方向鍵或觸控按鈕移動</div>
-		</main>
+        <!-- Main Content -->
+        <main class="main">
+            <!-- About Section -->
+            <section class="about-section">
+                <h2>關於我</h2>
+                <p>嗨！我是 crcrcyt，一個熱愛創作的創作者。無論是程式開發、設計創作，還是分享知識，我都希望能為這個世界帶來一些美好的改變。</p>
+                <p>你的支持是我繼續創作的最大動力！</p>
+            </section>
 
-		<section class="panel">
-			<div class="legend">
-				<span class="chip food-normal">●</span> 食物
-				<span class="chip food-boost">●</span> 加速
-				<span class="chip food-slow">●</span> 減速
-				<span class="chip food-double">●</span> 分數翻倍
-				<span class="chip food-ghost">●</span> 隱形
-			</div>
-			<div class="dpad" aria-label="觸控方向盤">
-				<button class="pad pad-up" data-dir="up" aria-label="上">▲</button>
-				<div class="pad-mid">
-					<button class="pad pad-left" data-dir="left" aria-label="左">◀</button>
-					<button class="pad pad-right" data-dir="right" aria-label="右">▶</button>
-				</div>
-				<button class="pad pad-down" data-dir="down" aria-label="下">▼</button>
-			</div>
-		</section>
+            <!-- Donation Section -->
+            <section class="donation-section">
+                <h2>支持創作</h2>
+                <div class="donation-options">
+                    <div class="donation-card">
+                        <div class="donation-icon">☕</div>
+                        <h3>買杯咖啡</h3>
+                        <p>支持我繼續創作</p>
+                        <a href="https://ko-fi.com/crcrcyt" class="donation-btn primary" target="_blank" rel="noopener">
+                            支持 $3
+                        </a>
+                    </div>
+                    
+                    <div class="donation-card">
+                        <div class="donation-icon">🍕</div>
+                        <h3>請吃披薩</h3>
+                        <p>讓我更有力氣創作</p>
+                        <a href="https://ko-fi.com/crcrcyt" class="donation-btn secondary" target="_blank" rel="noopener">
+                            支持 $5
+                        </a>
+                    </div>
+                    
+                    <div class="donation-card">
+                        <div class="donation-icon">🎨</div>
+                        <h3>藝術贊助</h3>
+                        <p>支持藝術創作</p>
+                        <a href="https://ko-fi.com/crcrcyt" class="donation-btn accent" target="_blank" rel="noopener">
+                            支持 $10
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="custom-donation">
+                    <h3>自訂金額</h3>
+                    <p>想要支持其他金額？直接點擊下方按鈕前往 Ko-fi！</p>
+                    <a href="https://ko-fi.com/crcrcyt" class="donation-btn custom" target="_blank" rel="noopener">
+                        🎁 前往 Ko-fi 支持
+                    </a>
+                </div>
+            </section>
 
-		<div id="board" class="leaderboard hidden" role="dialog" aria-modal="true" aria-labelledby="board-title">
-			<div class="leaderboard-card">
-				<div class="leaderboard-head">
-					<h2 id="board-title">排行榜 Top 10</h2>
-					<button id="btn-close-board" class="btn ghost" aria-label="關閉">✕</button>
-				</div>
-				<ol id="board-list" class="board-list"></ol>
-				<div class="leaderboard-foot">
-					<button id="btn-clear-board" class="btn danger">清除紀錄</button>
-				</div>
-			</div>
-		</div>
-	</div>
+            <!-- What You Get Section -->
+            <section class="benefits-section">
+                <h2>你的支持會帶來什麼</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🚀</div>
+                        <h3>更多創作</h3>
+                        <p>有更多時間和資源投入創作</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">💡</div>
+                        <h3>創新想法</h3>
+                        <p>嘗試新的創作方向和技術</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🌟</div>
+                        <h3>品質提升</h3>
+                        <p>提升創作品質和用戶體驗</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🤝</div>
+                        <h3>社群互動</h3>
+                        <p>與支持者更多互動交流</p>
+                    </div>
+                </div>
+            </section>
 
-	<script src="./script.js"></script>
+            <!-- Social Links -->
+            <section class="social-section">
+                <h2>關注我</h2>
+                <div class="social-links">
+                    <a href="https://ko-fi.com/crcrcyt" class="social-link ko-fi" target="_blank" rel="noopener">
+                        <span class="social-icon">☕</span>
+                        <span>Ko-fi</span>
+                    </a>
+                    <a href="#" class="social-link github" target="_blank" rel="noopener">
+                        <span class="social-icon">🐙</span>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="#" class="social-link twitter" target="_blank" rel="noopener">
+                        <span class="social-icon">🐦</span>
+                        <span>Twitter</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 crcrcyt. 感謝你的支持！</p>
+            <p class="footer-note">這個網站使用 Ko-fi 進行安全支付</p>
+        </footer>
+    </div>
+
+    <!-- Floating Donation Button -->
+    <div class="floating-donation">
+        <a href="https://ko-fi.com/crcrcyt" class="floating-btn" target="_blank" rel="noopener">
+            ☕ 支持創作
+        </a>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
