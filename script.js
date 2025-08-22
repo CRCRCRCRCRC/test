@@ -10,8 +10,8 @@
 	const choice = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 	// ==== Game Config ====
-	const GRID_SIZE = 32; // 32x32 grid on 640 canvas -> cell 20px
-	const CANVAS_PX = 640;
+	const GRID_SIZE = 28; // 28x28 grid on 560 canvas -> cell 20px
+	const CANVAS_PX = 560;
 	const CELL = CANVAS_PX / GRID_SIZE;
 
 	const BASE_TICK_MS = 150; // base snake step interval
@@ -115,12 +115,13 @@
 	document.addEventListener('keydown', (e)=>{
 		const d = dirs[e.code];
 		if(d){
+			e.preventDefault(); // prevent page scrolling
 			// block reverse
 			if(d.x === -dir.x && d.y === -dir.y) return;
 			nextDir = d;
 			elTip.style.display = 'none';
 		}
-		if(e.code === 'Space'){ $('#btn-pause').click(); }
+		if(e.code === 'Space'){ e.preventDefault(); $('#btn-pause').click(); }
 	});
 
 	$$('.pad').forEach(btn=>{
@@ -167,13 +168,13 @@
 
 	// ==== Game Core ====
 	function start(){
-		snake = [ {x:10, y:16}, {x:9, y:16}, {x:8, y:16} ];
+		snake = [ {x:8, y:14}, {x:7, y:14}, {x:6, y:14} ]; // adjusted for smaller grid
 		dir = {x:1,y:0}; nextDir = {x:1,y:0};
 		score = 0; growSegments = 0; elScore.textContent = '0';
 		elHigh.textContent = String(highScore);
 		tickMs = BASE_TICK_MS; effects = { boost:0, slow:0, double:0, ghost:0 };
 		spawnFood();
-		particles.length = 0;
+		particles.length = 0; popups.length = 0;
 		running = true; paused = false; lastFrame = 0; acc = 0;
 		elOverlay.classList.add('hidden');
 		updateButtons();
@@ -225,11 +226,11 @@
 		// dynamic speed scaling by score
 		const speedBoost = clamp(score * SPEED_PER_SCORE, 0, 70);
 		tickMs = clamp(BASE_TICK_MS - speedBoost, MIN_TICK_MS, BASE_TICK_MS);
-		// powerups
-		if(type === FOOD_TYPES.BOOST) effects.boost = POWERUP_DURATIONS.boost;
-		if(type === FOOD_TYPES.SLOW) effects.slow = POWERUP_DURATIONS.slow;
-		if(type === FOOD_TYPES.DOUBLE) effects.double = POWERUP_DURATIONS.double;
-		if(type === FOOD_TYPES.GHOST) effects.ghost = POWERUP_DURATIONS.ghost;
+		// powerups with debug
+		if(type === FOOD_TYPES.BOOST) { effects.boost = POWERUP_DURATIONS.boost; console.log('Boost activated!'); }
+		if(type === FOOD_TYPES.SLOW) { effects.slow = POWERUP_DURATIONS.slow; console.log('Slow activated!'); }
+		if(type === FOOD_TYPES.DOUBLE) { effects.double = POWERUP_DURATIONS.double; console.log('Double activated!'); }
+		if(type === FOOD_TYPES.GHOST) { effects.ghost = POWERUP_DURATIONS.ghost; console.log('Ghost activated!'); }
 	}
 
 	function colorForFood(type){
@@ -238,8 +239,8 @@
 
 	function currentTick(){
 		let ms = tickMs;
-		if(effects.boost>0) ms *= 0.7;
-		if(effects.slow>0) ms *= 1.6;
+		if(effects.boost>0) ms *= 0.6; // stronger boost effect
+		if(effects.slow>0) ms *= 2.0; // stronger slow effect
 		return clamp(ms, 40, 400);
 	}
 
@@ -263,12 +264,20 @@
 
 	function drawGrid(){
 		ctx.clearRect(0,0,canvas.width, canvas.height);
-		// subtle grid
-		ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+		// clearer grid
+		ctx.strokeStyle = 'rgba(255,255,255,0.12)';
 		ctx.lineWidth = 1;
 		for(let i=0;i<=GRID_SIZE;i++){
 			ctx.beginPath(); ctx.moveTo(0, i*CELL); ctx.lineTo(CANVAS_PX, i*CELL); ctx.stroke();
 			ctx.beginPath(); ctx.moveTo(i*CELL, 0); ctx.lineTo(i*CELL, CANVAS_PX); ctx.stroke();
+		}
+		// darker grid for light theme
+		if(document.documentElement.classList.contains('light')){
+			ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+			for(let i=0;i<=GRID_SIZE;i++){
+				ctx.beginPath(); ctx.moveTo(0, i*CELL); ctx.lineTo(CANVAS_PX, i*CELL); ctx.stroke();
+				ctx.beginPath(); ctx.moveTo(i*CELL, 0); ctx.lineTo(i*CELL, CANVAS_PX); ctx.stroke();
+			}
 		}
 	}
 
@@ -340,19 +349,22 @@
 
 	function drawEffectsBadges(){
 		const badges = [];
-		if(effects.boost>0) badges.push('Boost');
-		if(effects.slow>0) badges.push('Slow');
-		if(effects.double>0) badges.push('x2');
-		if(effects.ghost>0) badges.push('Ghost');
+		if(effects.boost>0) badges.push({text:'Boost', color:'#00e5a8'});
+		if(effects.slow>0) badges.push({text:'Slow', color:'#6ae3ff'});
+		if(effects.double>0) badges.push({text:'x2', color:'#ffd166'});
+		if(effects.ghost>0) badges.push({text:'Ghost', color:'#8b5cf6'});
 		if(!badges.length) return;
 		ctx.save();
-		ctx.globalAlpha = 0.8;
-		ctx.fillStyle = 'rgba(0,0,0,0.35)';
-		ctx.fillRect(10, 10, 16 + badges.length*56, 32);
-		ctx.fillStyle = '#cfe6ff';
-		ctx.font = 'bold 16px Outfit, sans-serif';
+		ctx.globalAlpha = 0.9;
+		ctx.fillStyle = 'rgba(0,0,0,0.4)';
+		ctx.fillRect(10, 10, 16 + badges.length*60, 36);
+		ctx.font = 'bold 18px Outfit, sans-serif';
 		let x = 18;
-		for(const b of badges){ ctx.fillText(b, x, 32); x += 56; }
+		for(const b of badges){
+			ctx.fillStyle = b.color;
+			ctx.fillText(b.text, x, 32);
+			x += 60;
+		}
 		ctx.restore();
 	}
 

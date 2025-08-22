@@ -50,7 +50,7 @@ body {
 .hud-center { display: flex; align-items: center; gap: 8px; }
 
 /* Stage */
-.stage-wrap { position: relative; width: min(92vw, 720px); margin: 10px auto 0; aspect-ratio: 1/1; }
+.stage-wrap { position: relative; width: min(85vw, 560px); margin: 10px auto 0; aspect-ratio: 1/1; }
 #game {
 	width: 100%; height: 100%; display: block;
 	background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0)), linear-gradient(180deg, #0c1422, #0b1320);
@@ -84,7 +84,7 @@ body {
 .btn.danger { background: linear-gradient(180deg, #ff6b6b, #e63946); }
 
 /* Legend */
-.panel { width: min(92vw, 720px); margin: 14px auto 28px; display: grid; gap: 14px; grid-template-columns: 1fr; }
+.panel { width: min(85vw, 560px); margin: 14px auto 28px; display: grid; gap: 14px; grid-template-columns: 1fr; }
 .legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; color: var(--muted); }
 .chip { display: inline-flex; width: 14px; height: 14px; align-items: center; justify-content: center; margin-right: 6px; border-radius: 50%; }
 .food-normal { background: #9bff66; box-shadow: 0 0 10px rgba(155,255,102,0.7); }
