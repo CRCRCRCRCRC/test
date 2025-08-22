@@ -56,6 +56,10 @@ body {
 	background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0)), linear-gradient(180deg, #0c1422, #0b1320);
 	border-radius: 20px; box-shadow: var(--shadow), inset 0 0 0 1px rgba(255,255,255,0.06);
 }
+:root.light #game {
+	background: linear-gradient(135deg, rgba(0,0,0,0.04), rgba(0,0,0,0)), linear-gradient(180deg, #e9f3ff, #dfeaff);
+	box-shadow: 0 10px 30px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(0,0,0,0.06);
+}
 
 .tip {
 	position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
@@ -83,11 +87,11 @@ body {
 .panel { width: min(92vw, 720px); margin: 14px auto 28px; display: grid; gap: 14px; grid-template-columns: 1fr; }
 .legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; color: var(--muted); }
 .chip { display: inline-flex; width: 14px; height: 14px; align-items: center; justify-content: center; margin-right: 6px; border-radius: 50%; }
-.food-normal { background: #9bff66; }
-.food-boost { background: #00e5a8; }
-.food-slow { background: #6ae3ff; }
-.food-double { background: #ffd166; }
-.food-ghost { background: #b38dff; }
+.food-normal { background: #9bff66; box-shadow: 0 0 10px rgba(155,255,102,0.7); }
+.food-boost { background: #00e5a8; box-shadow: 0 0 10px rgba(0,229,168,0.7); }
+.food-slow { background: #6ae3ff; box-shadow: 0 0 10px rgba(106,227,255,0.7); }
+.food-double { background: #ffd166; box-shadow: 0 0 10px rgba(255,209,102,0.8); }
+.food-ghost { background: #8b5cf6; box-shadow: 0 0 10px rgba(139,92,246,0.8); }
 
 /* D-Pad */
 .dpad { display: grid; grid-template-rows: auto auto auto; justify-items: center; gap: 8px; margin-top: 6px; }

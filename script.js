@@ -69,6 +69,7 @@
 	let acc = 0;
 	let effects = { boost: 0, slow: 0, double: 0, ghost: 0 };
 	let particles = [];
+	let popups = []; // floating score popups
 
 	// Leaderboard top 10
 	function readBoard(){
@@ -98,7 +99,7 @@
 	$('#btn-close-board').addEventListener('click', () => closeBoard());
 	$('#btn-clear-board').addEventListener('click', () => { localStorage.removeItem('ultra_snake_board'); renderBoard(); });
 	$('#btn-sound').addEventListener('click', () => { soundOn = !soundOn; playTone(660, .06, 'square', .08); updateButtons(); });
-	$('#btn-theme').addEventListener('click', () => { document.documentElement.classList.toggle('light'); });
+	$('#btn-theme').addEventListener('click', () => { document.documentElement.classList.toggle('light'); localStorage.setItem('ultra_snake_theme', document.documentElement.classList.contains('light')? 'light':'dark'); });
 	$('#btn-pause').addEventListener('click', () => { if(!running) return; paused = !paused; updateButtons(); playTone(paused?220:440,.06,'triangle',.06); });
 
 	function updateButtons(){
@@ -145,6 +146,23 @@
 		for(const p of particles){
 			ctx.globalAlpha = p.life/18; ctx.fillStyle = p.color; ctx.fillRect(p.x*CELL-2, p.y*CELL-2, 4, 4); ctx.globalAlpha = 1;
 		}
+	}
+	function updatePopups(){
+		for(const m of popups){ m.y -= 0.02; m.life--; }
+		popups = popups.filter(m=>m.life>0);
+	}
+	function drawPopups(){
+		ctx.save();
+		ctx.font = 'bold 18px Outfit, sans-serif';
+		ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+		for(const m of popups){
+			ctx.globalAlpha = Math.max(0, m.life/28);
+			ctx.fillStyle = '#0e1726';
+			ctx.fillText(m.text, m.x*CELL+1, m.y*CELL+1);
+			ctx.fillStyle = '#ffffff';
+			ctx.fillText(m.text, m.x*CELL, m.y*CELL);
+		}
+		ctx.restore();
 	}
 
 	// ==== Game Core ====
@@ -196,8 +214,11 @@
 	}
 
 	function onEat(type){
-		const add = effects.double>0 ? 2 : 1;
+		const base = 1; // base points per food
+		const mult = effects.double>0 ? 2 : 1;
+		const add = base * mult;
 		score += add; elScore.textContent = String(score);
+		popups.push({ x: food.x + 0.5, y: food.y + 0.3, text: `+${add}${mult>1?' x2':''}`, life: 28 });
 		growSegments += 1;
 		spawnParticle(food.x, food.y, colorForFood(type));
 		playTone(520, .06, 'square', .06);
@@ -234,6 +255,7 @@
 			effects.double = Math.max(0, effects.double - dt);
 			effects.ghost = Math.max(0, effects.ghost - dt);
 			updateParticles();
+			updatePopups();
 		}
 		draw();
 		requestAnimationFrame(loop);
@@ -254,22 +276,66 @@
 		const ghost = effects.ghost>0;
 		for(let i=snake.length-1;i>=0;i--){
 			const n = snake[i];
-			const t = i===0 ? 1 : Math.max(0.35, 1 - i*0.007);
+			const t = i===0 ? 1 : Math.max(0.5, 1 - i*0.006);
 			ctx.globalAlpha = ghost? 0.45 : t;
 			const grad = ctx.createLinearGradient(n.x*CELL, n.y*CELL, n.x*CELL, n.y*CELL+CELL);
-			grad.addColorStop(0, '#00e5a8'); grad.addColorStop(1, '#6ae3ff');
+			grad.addColorStop(0, '#34d399'); grad.addColorStop(1, '#10b981');
 			ctx.fillStyle = grad;
-			roundRect(n.x*CELL+2, n.y*CELL+2, CELL-4, CELL-4, 6);
+			// body shadow and outline
+			ctx.save();
+			ctx.shadowColor = '#0bbf8a'; ctx.shadowBlur = 10;
+			roundRect(n.x*CELL+2, n.y*CELL+2, CELL-4, CELL-4, 7);
 			ctx.fill();
+			ctx.restore();
+			ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+			roundRect(n.x*CELL+2, n.y*CELL+2, CELL-4, CELL-4, 7); ctx.stroke();
+		}
+		// eyes on head
+		const head = snake[0];
+		if(head){
+			const cx = head.x*CELL + CELL/2; const cy = head.y*CELL + CELL/2;
+			ctx.fillStyle = '#0e1726';
+			if(dir.x !== 0){
+				ctx.beginPath(); ctx.arc(cx + Math.sign(dir.x)*CELL*0.16, cy - CELL*0.12, 3, 0, Math.PI*2); ctx.fill();
+				ctx.beginPath(); ctx.arc(cx + Math.sign(dir.x)*CELL*0.16, cy + CELL*0.12, 3, 0, Math.PI*2); ctx.fill();
+			} else {
+				ctx.beginPath(); ctx.arc(cx - CELL*0.12, cy + Math.sign(dir.y)*CELL*0.16, 3, 0, Math.PI*2); ctx.fill();
+				ctx.beginPath(); ctx.arc(cx + CELL*0.12, cy + Math.sign(dir.y)*CELL*0.16, 3, 0, Math.PI*2); ctx.fill();
+			}
 		}
 		ctx.globalAlpha = 1;
 	}
 
 	function drawFood(){
 		if(!food) return;
-		ctx.fillStyle = colorForFood(food.type);
-		const r = CELL*0.5;
-		ctx.beginPath(); ctx.arc(food.x*CELL + CELL/2, food.y*CELL + CELL/2, r*0.36, 0, Math.PI*2); ctx.fill();
+		const cx = food.x*CELL + CELL/2;
+		const cy = food.y*CELL + CELL/2;
+		const glow = colorForFood(food.type);
+		ctx.save();
+		ctx.shadowColor = glow; ctx.shadowBlur = 14;
+		ctx.fillStyle = glow; ctx.strokeStyle = '#02131a'; ctx.lineWidth = 2;
+		const s = CELL*0.5;
+		ctx.beginPath();
+		if(food.type === 'boost') { // diamond
+			ctx.moveTo(cx, cy - s*0.35);
+			ctx.lineTo(cx + s*0.35, cy);
+			ctx.lineTo(cx, cy + s*0.35);
+			ctx.lineTo(cx - s*0.35, cy);
+			ctx.closePath();
+		} else if(food.type === 'slow') { // square
+			roundRect(cx - s*0.32, cy - s*0.32, s*0.64, s*0.64, 6);
+		} else if(food.type === 'double') { // star
+			star(cx, cy, 5, s*0.36, s*0.18);
+		} else if(food.type === 'ghost') { // triangle
+			ctx.moveTo(cx, cy - s*0.4);
+			ctx.lineTo(cx + s*0.36, cy + s*0.28);
+			ctx.lineTo(cx - s*0.36, cy + s*0.28);
+			ctx.closePath();
+		} else { // normal circle
+			ctx.arc(cx, cy, s*0.32, 0, Math.PI*2);
+		}
+		ctx.fill(); ctx.stroke();
+		ctx.restore();
 	}
 
 	function drawEffectsBadges(){
@@ -295,6 +361,7 @@
 		drawFood();
 		drawSnake();
 		drawParticles();
+		drawPopups();
 		drawEffectsBadges();
 	}
 
@@ -307,6 +374,15 @@
 		ctx.arcTo(x, y+h, x, y, r);
 		ctx.arcTo(x, y, x+w, y, r);
 		ctx.closePath();
+	}
+	function star(cx, cy, spikes, outerR, innerR){
+		let rot = Math.PI / 2 * 3; let x = cx; let y = cy; const step = Math.PI / spikes;
+		ctx.beginPath(); ctx.moveTo(cx, cy - outerR);
+		for(let i=0;i<spikes;i++){
+			x = cx + Math.cos(rot) * outerR; y = cy + Math.sin(rot) * outerR; ctx.lineTo(x, y); rot += step;
+			x = cx + Math.cos(rot) * innerR; y = cy + Math.sin(rot) * innerR; ctx.lineTo(x, y); rot += step;
+		}
+		ctx.lineTo(cx, cy - outerR); ctx.closePath();
 	}
 
 	function gameOver(){
@@ -337,6 +413,8 @@
 
 	// Start game initially
 	elHigh.textContent = String(highScore);
+	// Default to light theme for brighter visuals unless user previously set
+	document.documentElement.classList.toggle('light', (localStorage.getItem('ultra_snake_theme')||'light') === 'light');
 	start();
 
 })();
