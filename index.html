@@ -36,41 +36,22 @@
             <!-- Donation Section -->
             <section class="donation-section">
                 <h2>支持創作</h2>
-                <div class="donation-options">
-                    <div class="donation-card">
-                        <div class="donation-icon">☕</div>
-                        <h3>買杯咖啡</h3>
-                        <p>支持我繼續創作</p>
-                        <a href="https://ko-fi.com/crcrcyt" class="donation-btn primary" target="_blank" rel="noopener">
-                            支持 $3
-                        </a>
+                <div class="ko-fi-widget-container">
+                    <p>點擊右下角的浮動聊天按鈕來支持我的創作！</p>
+                    <div class="widget-info">
+                        <div class="info-item">
+                            <span class="info-icon">💬</span>
+                            <span>浮動聊天按鈕</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">💝</span>
+                            <span>多種斗內選項</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">🔒</span>
+                            <span>安全支付</span>
+                        </div>
                     </div>
-                    
-                    <div class="donation-card">
-                        <div class="donation-icon">🍕</div>
-                        <h3>請吃披薩</h3>
-                        <p>讓我更有力氣創作</p>
-                        <a href="https://ko-fi.com/crcrcyt" class="donation-btn secondary" target="_blank" rel="noopener">
-                            支持 $5
-                        </a>
-                    </div>
-                    
-                    <div class="donation-card">
-                        <div class="donation-icon">🎨</div>
-                        <h3>藝術贊助</h3>
-                        <p>支持藝術創作</p>
-                        <a href="https://ko-fi.com/crcrcyt" class="donation-btn accent" target="_blank" rel="noopener">
-                            支持 $10
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="custom-donation">
-                    <h3>自訂金額</h3>
-                    <p>想要支持其他金額？直接點擊下方按鈕前往 Ko-fi！</p>
-                    <a href="https://ko-fi.com/crcrcyt" class="donation-btn custom" target="_blank" rel="noopener">
-                        🎁 前往 Ko-fi 支持
-                    </a>
                 </div>
             </section>
 
@@ -128,12 +109,16 @@
         </footer>
     </div>
 
-    <!-- Floating Donation Button -->
-    <div class="floating-donation">
-        <a href="https://ko-fi.com/crcrcyt" class="floating-btn" target="_blank" rel="noopener">
-            ☕ 支持創作
-        </a>
-    </div>
+    <!-- Ko-fi Widget Script -->
+    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+    <script>
+      kofiWidgetOverlay.draw('crcrcyt', {
+        'type': 'floating-chat',
+        'floating-chat.donateButton.text': 'Support me',
+        'floating-chat.donateButton.background-color': '#5bc0de',
+        'floating-chat.donateButton.text-color': '#323842'
+      });
+    </script>
 
     <script src="script.js"></script>
 </body>

@@ -38,55 +38,18 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 
-    // Add hover effects to donation cards
-    document.querySelectorAll('.donation-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px) scale(1.02)';
+    // Add hover effects to info items
+    document.querySelectorAll('.info-item').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.02)';
         });
         
-        card.addEventListener('mouseleave', function() {
+        item.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
 
-    // Add click tracking for donation buttons
-    document.querySelectorAll('.donation-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            // Track donation button clicks
-            trackEvent('donation_click', {
-                button_type: this.className.includes('primary') ? 'coffee' : 
-                           this.className.includes('secondary') ? 'pizza' : 
-                           this.className.includes('accent') ? 'art' : 'custom',
-                amount: this.textContent.match(/\$(\d+)/)?.[1] || 'custom'
-            });
-            
-            // Add click animation
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-        });
-    });
-
-    // Add floating button scroll effect
-    const floatingBtn = document.querySelector('.floating-btn');
-    let lastScrollTop = 0;
-    
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Scrolling down - hide button
-            floatingBtn.style.transform = 'translateY(100px)';
-            floatingBtn.style.opacity = '0';
-        } else {
-            // Scrolling up - show button
-            floatingBtn.style.transform = 'translateY(0)';
-            floatingBtn.style.opacity = '1';
-        }
-        
-        lastScrollTop = scrollTop;
-    });
+    // Ko-fi widget will handle its own positioning
 
     // Add typing effect to tagline
     const tagline = document.querySelector('.tagline');
@@ -108,8 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add particle effect to header
     createParticles();
 
-    // Add donation counter animation
-    animateDonationCounter();
+    // Ko-fi widget is ready
 
     // Add social link hover effects
     document.querySelectorAll('.social-link').forEach(link => {
@@ -158,28 +120,7 @@ function createParticles() {
     document.head.appendChild(style);
 }
 
-// Animate donation counter
-function animateDonationCounter() {
-    const counters = document.querySelectorAll('.donation-btn');
-    
-    counters.forEach(counter => {
-        const text = counter.textContent;
-        if (text.includes('$')) {
-            const amount = text.match(/\$(\d+)/)?.[1];
-            if (amount) {
-                counter.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.05)';
-                    this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
-                });
-                
-                counter.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                    this.style.boxShadow = '';
-                });
-            }
-        }
-    });
-}
+// Ko-fi widget handles donation interactions
 
 // Track events for analytics
 function trackEvent(eventName, properties = {}) {
@@ -201,12 +142,7 @@ function trackEvent(eventName, properties = {}) {
 window.addEventListener('load', function() {
     document.body.classList.add('loaded');
     
-    // Add success message for donation clicks
-    document.querySelectorAll('.donation-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            showSuccessMessage('感謝你的支持！正在跳轉到 Ko-fi...');
-        });
-    });
+    // Ko-fi widget handles donation flow
 });
 
 // Show success message
