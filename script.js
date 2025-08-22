@@ -15,39 +15,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add scroll reveal animation
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    // Simple fade in animation for main content
+    const main = document.querySelector('.main');
+    if (main) {
+        main.style.opacity = '0';
+        main.style.transform = 'translateY(20px)';
+        main.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        
+        setTimeout(() => {
+            main.style.opacity = '1';
+            main.style.transform = 'translateY(0)';
+        }, 300);
+    }
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Observe all sections for animation
-    document.querySelectorAll('section').forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(section);
-    });
-
-    // Add hover effects to info items
-    document.querySelectorAll('.info-item').forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px) scale(1.02)';
+    // Simple hover effect for donation placeholder
+    const donationPlaceholder = document.querySelector('.donation-placeholder');
+    if (donationPlaceholder) {
+        donationPlaceholder.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.02)';
         });
         
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
+        donationPlaceholder.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
         });
-    });
+    }
 
     // Ko-fi widget will handle its own positioning
 
@@ -73,16 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ko-fi widget is ready
 
-    // Add social link hover effects
-    document.querySelectorAll('.social-link').forEach(link => {
-        link.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px) rotate(2deg)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) rotate(0deg)';
-        });
-    });
+    // Social links removed - simplified layout
 });
 
 // Create floating particles effect

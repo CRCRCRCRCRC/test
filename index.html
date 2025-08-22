@@ -26,87 +26,14 @@
 
         <!-- Main Content -->
         <main class="main">
-            <!-- About Section -->
-            <section class="about-section">
-                <h2>關於我</h2>
-                <p>嗨！我是 crcrcyt，一個熱愛創作的創作者。無論是程式開發、設計創作，還是分享知識，我都希望能為這個世界帶來一些美好的改變。</p>
-                <p>你的支持是我繼續創作的最大動力！</p>
-            </section>
-
-            <!-- Donation Section -->
-            <section class="donation-section">
-                <h2>支持創作</h2>
-                <div class="ko-fi-widget-container">
-                    <p>點擊右下角的浮動聊天按鈕來支持我的創作！</p>
-                    <div class="widget-info">
-                        <div class="info-item">
-                            <span class="info-icon">💬</span>
-                            <span>浮動聊天按鈕</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-icon">💝</span>
-                            <span>多種斗內選項</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-icon">🔒</span>
-                            <span>安全支付</span>
-                        </div>
-                    </div>
+            <!-- Centered Donation Area -->
+            <div class="center-donation">
+                <div class="donation-placeholder">
+                    <p>點擊下方按鈕支持創作</p>
                 </div>
-            </section>
+            </div>
 
-            <!-- What You Get Section -->
-            <section class="benefits-section">
-                <h2>你的支持會帶來什麼</h2>
-                <div class="benefits-grid">
-                    <div class="benefit-item">
-                        <div class="benefit-icon">🚀</div>
-                        <h3>更多創作</h3>
-                        <p>有更多時間和資源投入創作</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">💡</div>
-                        <h3>創新想法</h3>
-                        <p>嘗試新的創作方向和技術</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">🌟</div>
-                        <h3>品質提升</h3>
-                        <p>提升創作品質和用戶體驗</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">🤝</div>
-                        <h3>社群互動</h3>
-                        <p>與支持者更多互動交流</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Social Links -->
-            <section class="social-section">
-                <h2>關注我</h2>
-                <div class="social-links">
-                    <a href="https://ko-fi.com/crcrcyt" class="social-link ko-fi" target="_blank" rel="noopener">
-                        <span class="social-icon">☕</span>
-                        <span>Ko-fi</span>
-                    </a>
-                    <a href="#" class="social-link github" target="_blank" rel="noopener">
-                        <span class="social-icon">🐙</span>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="#" class="social-link twitter" target="_blank" rel="noopener">
-                        <span class="social-icon">🐦</span>
-                        <span>Twitter</span>
-                    </a>
-                </div>
-            </section>
         </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>&copy; 2024 crcrcyt. 感謝你的支持！</p>
-            <p class="footer-note">這個網站使用 Ko-fi 進行安全支付</p>
-        </footer>
     </div>
 
     <!-- Ko-fi Widget Script -->
@@ -114,7 +41,7 @@
     <script>
       kofiWidgetOverlay.draw('crcrcyt', {
         'type': 'floating-chat',
-        'floating-chat.donateButton.text': 'Support me',
+        'floating-chat.donateButton.text': 'Donate',
         'floating-chat.donateButton.background-color': '#5bc0de',
         'floating-chat.donateButton.text-color': '#323842'
       });

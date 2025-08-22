@@ -33,6 +33,9 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header */
@@ -88,178 +91,33 @@ body {
 
 /* Main Content */
 .main {
-    margin-bottom: 60px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
 }
 
-section {
+.center-donation {
+    text-align: center;
+    padding: 40px;
+}
+
+.donation-placeholder {
     background: var(--bg);
     border-radius: var(--radius);
-    padding: 40px;
-    margin-bottom: 30px;
+    padding: 60px 40px;
     box-shadow: var(--shadow);
     backdrop-filter: blur(10px);
-}
-
-section h2 {
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-section p {
-    font-size: 1.1rem;
-    color: var(--text-light);
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-/* Donation Section */
-.ko-fi-widget-container {
-    text-align: center;
-    padding: 40px 20px;
-}
-
-.ko-fi-widget-container p {
-    font-size: 1.2rem;
-    color: var(--text);
-    margin-bottom: 30px;
-}
-
-.widget-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
 }
 
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 20px;
-    background: var(--bg-light);
-    border-radius: var(--radius);
-    transition: var(--transition);
-}
-
-.info-item:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow);
-}
-
-.info-icon {
-    font-size: 2rem;
-}
-
-.info-item span:last-child {
-    font-weight: 500;
-    color: var(--text);
-}
-
-/* Benefits Section */
-.benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-}
-
-.benefit-item {
-    text-align: center;
-    padding: 25px;
-    background: var(--bg-light);
-    border-radius: var(--radius);
-    transition: var(--transition);
-}
-
-.benefit-item:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow);
-}
-
-.benefit-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.benefit-item h3 {
+.donation-placeholder p {
     font-size: 1.3rem;
-    font-weight: 600;
     color: var(--text);
-    margin-bottom: 10px;
-}
-
-.benefit-item p {
-    color: var(--text-light);
-    font-size: 1rem;
-}
-
-/* Social Section */
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.social-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 25px;
-    background: var(--bg-light);
-    border-radius: var(--radius);
-    text-decoration: none;
-    color: var(--text);
+    margin: 0;
     font-weight: 500;
-    transition: var(--transition);
-    border: 2px solid transparent;
-}
-
-.social-link:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-    border-color: var(--primary);
-}
-
-.social-icon {
-    font-size: 1.5rem;
-}
-
-.social-link.ko-fi:hover {
-    background: var(--primary);
-    color: white;
-}
-
-.social-link.github:hover {
-    background: #333;
-    color: white;
-}
-
-.social-link.twitter:hover {
-    background: #1da1f2;
-    color: white;
-}
-
-/* Footer */
-.footer {
-    text-align: center;
-    padding: 30px;
-    background: var(--bg);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-}
-
-.footer p {
-    margin-bottom: 10px;
-    color: var(--text);
-}
-
-.footer-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
 }
 
 /* Ko-fi Widget will appear in bottom right corner */
@@ -282,31 +140,12 @@ section p {
         font-size: 2rem;
     }
     
-    section {
-        padding: 30px 20px;
+    .center-donation {
+        padding: 20px;
     }
     
-    .donation-options {
-        grid-template-columns: 1fr;
-    }
-    
-    .benefits-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .social-links {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .floating-donation {
-        bottom: 20px;
-        right: 20px;
-    }
-    
-    .floating-btn {
-        padding: 12px 20px;
-        font-size: 0.9rem;
+    .donation-placeholder {
+        padding: 40px 20px;
     }
 }
 
@@ -328,15 +167,7 @@ section p {
         font-size: 1rem;
     }
     
-    section h2 {
-        font-size: 1.6rem;
-    }
-    
-    .donation-card {
-        padding: 25px 20px;
-    }
-    
-    .donation-icon {
-        font-size: 2.5rem;
+    .donation-placeholder p {
+        font-size: 1.1rem;
     }
 }
