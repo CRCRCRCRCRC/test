@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crcrcyt - 支持創作</title>
+    <meta name="description" content="支持 crcrcyt 的創作，讓我們一起創造更多美好的內容">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E☕%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="profile">
+                <div class="avatar">
+                    <span class="avatar-text">crcrcyt</span>
+                </div>
+                <h1 class="name">crcrcyt</h1>
+                <p class="tagline">創作不息，夢想不止</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Centered Donation Area -->
+            <div class="center-donation">
+                <div class="donation-placeholder">
+                    <p>點擊下方按鈕支持創作</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Ko-fi Widget Script -->
+    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+    <script>
+      kofiWidgetOverlay.draw('crcrcyt', {
+        'type': 'floating-chat',
+        'floating-chat.donateButton.text': 'Donate',
+        'floating-chat.donateButton.background-color': '#5bc0de',
+        'floating-chat.donateButton.text-color': '#323842'
+      });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

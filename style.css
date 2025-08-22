@@ -1,0 +1,173 @@
+/* Ko-fi Donation Website for crcrcyt */
+:root {
+    --primary: #ff5e5e;
+    --primary-dark: #e54545;
+    --secondary: #4a90e2;
+    --accent: #f39c12;
+    --text: #2c3e50;
+    --text-light: #7f8c8d;
+    --bg: #ffffff;
+    --bg-light: #f8f9fa;
+    --border: #e9ecef;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 40px 20px;
+}
+
+.profile {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(10px);
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.avatar-text {
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    font-weight: 400;
+}
+
+/* Main Content */
+.main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+.center-donation {
+    text-align: center;
+    padding: 40px;
+}
+
+.donation-placeholder {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 60px 40px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.donation-placeholder p {
+    font-size: 1.3rem;
+    color: var(--text);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Ko-fi Widget will appear in bottom right corner */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header {
+        margin-bottom: 40px;
+    }
+    
+    .profile {
+        padding: 30px 20px;
+    }
+    
+    .name {
+        font-size: 2rem;
+    }
+    
+    .center-donation {
+        padding: 20px;
+    }
+    
+    .donation-placeholder {
+        padding: 40px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .avatar-text {
+        font-size: 20px;
+    }
+    
+    .name {
+        font-size: 1.8rem;
+    }
+    
+    .tagline {
+        font-size: 1rem;
+    }
+    
+    .donation-placeholder p {
+        font-size: 1.1rem;
+    }
+}
